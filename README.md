@@ -100,7 +100,7 @@ Airbnb_demo/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/DOMI623/Airbnb_demo.git
+git clone https://github.com/EddyDevWeb/Airbnb_demo.git
 cd Airbnb_demo
 ```
 
@@ -269,7 +269,7 @@ Base URL: `http://localhost:3000/api`
 
 ## Autor
 
-**DOMI623** — [@DOMI623](https://github.com/DOMI623)
+**EddyDevWeb** — [@EddyDevWeb](https://github.com/EddyDevWeb)
 
 ---
 
