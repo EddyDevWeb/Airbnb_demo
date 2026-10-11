@@ -25,7 +25,7 @@ import paymentRouter from "./src/routes/payment.routes.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 await connectDB();
 await seedRoles();
@@ -35,9 +35,16 @@ await seedNotificationTypes();
 
 const app = express();
 
+const allowedOrigins = (
+  process.env.CLIENT_URL || "http://localhost:5173"
+)
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -48,7 +55,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: allowedOrigins,
+    credentials: true,
   },
 });
 
@@ -72,6 +80,10 @@ app.use("/api/payments", paymentRouter);
 
 app.get("/", (req, res) => {
   res.send("Backend Airbnb funcionando");
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", uptime: process.uptime() });
 });
 
 io.on("connection", (socket) => {

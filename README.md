@@ -156,6 +156,7 @@ La aplicación estará disponible en `http://localhost:5173`.
 | Variable     | Descripción                                        | Ejemplo                              |
 | ------------ | -------------------------------------------------- | ------------------------------------ |
 | `PORT`       | Puerto del servidor                                | `3000`                               |
+| `CLIENT_URL` | URL(s) del frontend para CORS (separadas por coma) | `http://localhost:5173`              |
 | `MONGO_URI`  | Cadena de conexión de MongoDB                      | `mongodb://localhost:27017/airbnb`   |
 | `JWT_SECRET` | Clave secreta para firmar los tokens JWT           | `una_clave_larga_y_segura`           |
 | `EMAIL_USER` | Correo emisor para notificaciones                  | `example@gmail.com`                  |
@@ -264,6 +265,53 @@ Base URL: `http://localhost:3000/api`
 | `client` | Inicio, alojamientos, reservas, pagos, favoritos, perfil, notificaciones y chat               |
 | `host`   | Todo lo anterior + panel de anfitrión (`/host`, `/host/listings`, `/host/bookings`)            |
 | `admin`  | Acceso total + panel de administración (`/admin/users`, `/admin/roles`, catálogos, etc.)      |
+
+---
+
+## Despliegue
+
+### 1. Base de datos — MongoDB Atlas (gratis)
+En la nube **no** puedes usar `mongodb://localhost`. Necesitas un clúster:
+1. Crea una cuenta en [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) y un clúster **M0 (gratis)**.
+2. **Database Access** → crea un usuario y contraseña.
+3. **Network Access** → añade `0.0.0.0/0` (permite conexiones desde cualquier IP).
+4. **Connect → Drivers** → copia la cadena `mongodb+srv://...`. Esa será tu `MONGO_URI`.
+
+### 2. Backend en Render
+1. Crea una cuenta en [Render](https://render.com) y conecta tu GitHub.
+2. **New → Web Service** y selecciona este repositorio.
+3. Configura:
+   - **Root Directory**: `backend`
+   - **Environment**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+   - **Instance Type**: `Free`
+4. En **Environment Variables** añade:
+   - `MONGO_URI` → la cadena de Atlas
+   - `JWT_SECRET` → cadena larga y aleatoria
+   - `EMAIL_USER` y `EMAIL_PASS`
+   - `CLIENT_URL` → la URL de Vercel (la añades después del paso 3)
+   - `PORT` lo asigna Render automáticamente.
+5. Deploy y anota la URL del servicio (ej: `https://airbnb-demo.onrender.com`).
+
+> Endpoint de salud para monitoreo: `GET /health`.
+
+### 3. Frontend en Vercel
+1. Crea una cuenta en [Vercel](https://vercel.com) e importa este repositorio.
+2. Configura:
+   - **Root Directory**: `frontend`
+   - **Framework Preset**: `Vite` (autodetectado)
+   - **Build Command**: `npm run build` · **Output Directory**: `dist`
+3. En **Environment Variables** añade:
+   - `VITE_API_URL` → la URL del backend en Render (ej: `https://airbnb-demo.onrender.com`)
+4. Deploy. Vercel devolverá una URL como `https://airbnb-demo.vercel.app`.
+
+### 4. Cerrar el círculo (CORS + WebSockets)
+Vuelve a **Render → Environment Variables** y pon `CLIENT_URL` con la URL real de Vercel
+(`https://airbnb-demo.vercel.app`) y haz **redeploy**. Así el backend acepta peticiones y
+conexiones de Socket.io desde el frontend desplegado.
+
+> ⚠️ En el plan **Free** de Render, el servicio se "duerme" tras un rato de inactividad: la primera petición puede tardar ~30 s en responder.
 
 ---
 
