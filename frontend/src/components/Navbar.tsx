@@ -73,8 +73,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
 
         {/* Logo */}
-        <Link to="/dashboard" className="text-xl sm:text-2xl font-bold text-red-500 shrink-0">
-          Airbnb
+        <Link to="/dashboard" className="text-xl sm:text-2xl font-bold text-indigo-600 shrink-0">
+          StayHub
         </Link>
 
         {/* Search bar - hidden on mobile */}
@@ -103,7 +103,7 @@ export default function Navbar() {
               alt="avatar"
             />
             {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                 {unreadCount > 9 ? "9+" : unreadCount}
               </span>
             )}
@@ -139,7 +139,7 @@ export default function Navbar() {
                 <Link to="/notifications" onClick={closeMenu} className="flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition">
                   <span>Notificaciones</span>
                   {unreadCount > 0 && (
-                    <span className="bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    <span className="bg-indigo-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                       {unreadCount > 9 ? "9+" : unreadCount}
                     </span>
                   )}
@@ -174,7 +174,7 @@ export default function Navbar() {
                   <button
                     onClick={handleBecomeHost}
                     disabled={loadingHost}
-                    className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition font-medium text-red-500"
+                    className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 transition font-medium text-indigo-600"
                   >
                     {loadingHost ? "..." : "Quiero ser Host"}
                   </button>

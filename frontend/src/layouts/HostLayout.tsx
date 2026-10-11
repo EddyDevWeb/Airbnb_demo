@@ -21,7 +21,7 @@ export default function HostLayout() {
 
             {/* Sidebar */}
             <aside className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white border-r shadow-sm p-6 flex flex-col transform transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                <h2 className="text-xl font-bold text-red-500 mb-8">Panel Host</h2>
+                <h2 className="text-xl font-bold text-indigo-600 mb-8">Panel Host</h2>
                 <nav className="space-y-2 flex-1">
                     {links.map((link) => (
                         <Link
@@ -30,7 +30,7 @@ export default function HostLayout() {
                             onClick={() => setSidebarOpen(false)}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition ${
                                 location.pathname === link.to
-                                    ? "bg-red-50 text-red-600"
+                                    ? "bg-indigo-50 text-indigo-600"
                                     : "text-gray-600 hover:bg-gray-50"
                             }`}
                         >
@@ -57,7 +57,7 @@ export default function HostLayout() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <h2 className="text-lg font-bold text-red-500">Panel Host</h2>
+                    <h2 className="text-lg font-bold text-indigo-600">Panel Host</h2>
                 </div>
                 <main className="flex-1 p-4 sm:p-6 lg:p-8">
                     <Outlet />

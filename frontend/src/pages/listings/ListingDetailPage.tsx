@@ -204,7 +204,7 @@ export default function ListingDetailPage() {
                                 <button
                                     type="submit"
                                     disabled={submittingReview}
-                                    className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition disabled:opacity-50"
+                                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition disabled:opacity-50"
                                 >
                                     {submittingReview ? "Publicando..." : "Publicar Review"}
                                 </button>

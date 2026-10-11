@@ -36,7 +36,7 @@ export default function FavoritesPage() {
                     <p className="text-gray-500 text-lg mb-4">Aún no tienes favoritos</p>
                     <Link
                         to="/listings"
-                        className="inline-block bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition"
+                        className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition"
                     >
                         Explorar alojamientos
                     </Link>

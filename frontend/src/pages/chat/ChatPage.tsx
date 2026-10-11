@@ -128,7 +128,7 @@ export default function ChatPage() {
                         <p className="text-gray-500 text-sm mb-3">No tienes conversaciones aún</p>
                         <Link
                             to="/listings"
-                            className="inline-block bg-red-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                            className="inline-block bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
                         >
                             Explorar propiedades
                         </Link>
@@ -141,7 +141,7 @@ export default function ChatPage() {
                             <button
                                 key={conv._id.participants.from + conv._id.participants.to}
                                 onClick={() => navigate(`/chat/${otherId}`)}
-                                className={`w-full text-left px-4 py-3 border-b hover:bg-gray-100 transition ${isActive ? "bg-red-50 border-l-4 border-l-red-500" : ""}`}
+                                className={`w-full text-left px-4 py-3 border-b hover:bg-gray-100 transition ${isActive ? "bg-indigo-50 border-l-4 border-l-indigo-600" : ""}`}
                             >
                                 <p className="text-sm font-medium truncate">
                                     {otherId.slice(0, 8)}...
@@ -194,12 +194,12 @@ export default function ChatPage() {
                                             <div
                                                 className={`max-w-[80%] sm:max-w-xs px-4 py-2 rounded-2xl text-sm ${
                                                     isMine
-                                                        ? "bg-red-500 text-white rounded-br-md"
+                                                        ? "bg-indigo-600 text-white rounded-br-md"
                                                         : "bg-gray-100 text-gray-800 rounded-bl-md"
                                                 }`}
                                             >
                                                 <p>{msg.content}</p>
-                                                <p className={`text-xs mt-1 ${isMine ? "text-red-200" : "text-gray-400"}`}>
+                                                <p className={`text-xs mt-1 ${isMine ? "text-indigo-200" : "text-gray-400"}`}>
                                                     {format(new Date(msg.createdAt), "HH:mm")}
                                                 </p>
                                             </div>
@@ -216,12 +216,12 @@ export default function ChatPage() {
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 placeholder="Escribe un mensaje..."
-                                className="flex-1 border rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-300 min-w-0"
+                                className="flex-1 border rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 min-w-0"
                             />
                             <button
                                 type="submit"
                                 disabled={!newMessage.trim()}
-                                className="bg-red-500 text-white px-4 sm:px-6 py-2 rounded-full text-sm font-medium hover:bg-red-600 transition disabled:opacity-50 shrink-0"
+                                className="bg-indigo-600 text-white px-4 sm:px-6 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition disabled:opacity-50 shrink-0"
                             >
                                 Enviar
                             </button>

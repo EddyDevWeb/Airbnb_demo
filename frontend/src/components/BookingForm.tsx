@@ -112,7 +112,7 @@ export default function BookingForm({ listing }: Props) {
             <button
                 type="submit"
                 disabled={loading || nights === 0}
-                className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-red-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full bg-gradient-to-r from-indigo-600 to-violet-500 text-white py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-violet-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
                 {loading ? "Reservando..." : "Reservar"}
             </button>

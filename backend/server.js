@@ -88,7 +88,7 @@ app.use("/api/reviews", reviewRouter);
 app.use("/api/payments", paymentRouter);
 
 app.get("/", (req, res) => {
-  res.send("Backend Airbnb funcionando");
+  res.send("Backend StayHub funcionando");
 });
 
 app.get("/health", (req, res) => {

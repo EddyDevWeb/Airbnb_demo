@@ -1,6 +1,6 @@
-# Airbnb Demo
+# StayHub
 
-Plataforma web de alquiler de alojamientos inspirada en Airbnb. Permite a los usuarios explorar y reservar propiedades, a los anfitriones publicar y gestionar sus alojamientos, y a los administradores controlar usuarios, roles y catálogos del sistema. Incluye autenticación con JWT, reservas, pagos, reseñas, favoritos, notificaciones en tiempo real y chat entre usuarios mediante WebSockets.
+Plataforma web de alquiler de alojamientos (proyecto de portafolio inspirado en Airbnb). Permite a los usuarios explorar y reservar propiedades, a los anfitriones publicar y gestionar sus alojamientos, y a los administradores controlar usuarios, roles y catálogos del sistema. Incluye autenticación con JWT, reservas, pagos, reseñas, favoritos, notificaciones en tiempo real y chat entre usuarios mediante WebSockets.
 
 > Proyecto full stack (Frontend + Backend) desarrollado como demostración de arquitectura cliente-servidor, API REST y comunicación en tiempo real.
 

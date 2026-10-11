@@ -72,7 +72,7 @@ export default function NotificationsPage() {
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-3xl font-bold">Notificaciones</h1>
                 {unreadCount > 0 && (
-                    <span className="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                    <span className="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-full">
                         {unreadCount} sin leer
                     </span>
                 )}

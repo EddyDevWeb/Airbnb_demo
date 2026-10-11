@@ -111,7 +111,7 @@ export default function HostListings() {
                 <h1 className="text-3xl font-bold">Mis Propiedades</h1>
                 <button
                     onClick={() => { resetForm(); setShowForm(!showForm); }}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
                 >
                     {showForm ? "Cancelar" : "+ Nueva Propiedad"}
                 </button>
