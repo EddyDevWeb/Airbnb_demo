@@ -278,8 +278,11 @@ En la nube **no** puedes usar `mongodb://localhost`. Necesitas un clúster:
 4. **Connect → Drivers** → copia la cadena `mongodb+srv://...`. Esa será tu `MONGO_URI`.
 
 ### 2. Backend en Render
+> El repositorio incluye un `render.yaml`. Si en Render eliges **New → Blueprint** y apuntas a este repo,
+> Render crea el servicio del backend automáticamente y solo tendrás que rellenar las variables marcadas.
+
 1. Crea una cuenta en [Render](https://render.com) y conecta tu GitHub.
-2. **New → Web Service** y selecciona este repositorio.
+2. **New → Web Service** y selecciona este repositorio (o **New → Blueprint** para usar `render.yaml`).
 3. Configura:
    - **Root Directory**: `backend`
    - **Environment**: `Node`
