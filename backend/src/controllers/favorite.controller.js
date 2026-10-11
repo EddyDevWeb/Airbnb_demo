@@ -4,13 +4,12 @@ import Listing from "../models/Listing.models.js";
 
 export const addFavorite = async (req, res) => {
   try {
-    const { userId, listingId } = req.body;
+    const { listingId } = req.body;
+    const userId = req.user.id;
 
-    const user = await User.findById(userId);
     const listing = await Listing.findById(listingId);
-
-    if (!user || !listing) {
-      return res.status(404).json({ message: "User or Listing not found" });
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
     }
 
     const existingFavorite = await Favorite.findOne({
@@ -38,7 +37,7 @@ export const addFavorite = async (req, res) => {
 
 export const getUserFavorites = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.params.userId === "me" ? req.user.id : req.params.userId;
 
     const favorites = await Favorite.find({ user: userId }).populate("listing");
 
@@ -51,7 +50,8 @@ export const getUserFavorites = async (req, res) => {
 
 export const removeFavorite = async (req, res) => {
   try {
-    const { userId, listingId } = req.body;
+    const { listingId } = req.body;
+    const userId = req.user.id;
 
     const favorite = await Favorite.findOneAndDelete({
       user: userId,

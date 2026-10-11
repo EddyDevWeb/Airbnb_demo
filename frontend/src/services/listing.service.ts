@@ -1,16 +1,13 @@
-// src/services/listings.ts
+// src/services/listing.service.ts
+import api from "../api/axios";
 import { type Listing } from "../types/listing";
 
-const BASE_URL = "http://localhost:3000/api/listings";
-
 export async function getAllListings(): Promise<Listing[]> {
-    const response = await fetch(BASE_URL);
+    const { data } = await api.get<{ listings: Listing[] }>("/listings/get");
+    return data.listings;
+}
 
-    if (!response.ok) {
-        throw new Error("Error al obtener los listings");
-    }
-
-    const json = await response.json();
-
-    return json.data; // 👈 AQUÍ ESTÁ EL ARRAY REAL
+export async function getListingById(id: string): Promise<Listing> {
+    const { data } = await api.get<{ listing: Listing }>(`/listings/getId/${id}`);
+    return data.listing;
 }

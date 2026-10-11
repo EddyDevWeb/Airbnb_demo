@@ -4,12 +4,13 @@ import { Server } from "socket.io";
 import express from "express";
 import { connectDB } from "./src/config/db.js";
 import { seedNotificationTypes } from "./src/seed/notificationType.seed.js";
+import { seedRoles, seedCategories, seedBookingStatuses } from "./src/seed/initial.seed.js";
 import { socketMiddleware } from "./src/middlewares/socketMiddleware.js";
 
 import userRouter from "./src/routes/user.routes.js";
-import NotificationRouter from "./src/routes/Notification.routes.js";
+import NotificationRouter from "./src/routes/notification.routes.js";
 import bookingRouter from "./src/routes/booking.routes.js";
-import NotificationTypeRouter from "./src/routes/NotificationType.routes.js";
+import NotificationTypeRouter from "./src/routes/notificationType.routes.js";
 import MessageRouter from "./src/routes/message.routes.js";
 import favoriteRouter from "./src/routes/favorite.route.js";
 import bookingsStatusRouter from "./src/routes/bookingStatus.routes.js";
@@ -19,12 +20,17 @@ import roleRouter from "./src/routes/role.routes.js";
 import authRouter from "./src/routes/auth.routes.js";
 import cors from "cors";
 import addressRouter from "./src/routes/address.routes.js";
+import reviewRouter from "./src/routes/review.routes.js";
+import paymentRouter from "./src/routes/payment.routes.js";
 
 dotenv.config();
 
 const PORT = process.env.PORT;
 
 await connectDB();
+await seedRoles();
+await seedCategories();
+await seedBookingStatuses();
 await seedNotificationTypes();
 
 const app = express();
@@ -61,8 +67,10 @@ app.use("/api/listings", listingRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/roles", roleRouter);
 app.use("/api/addresses", addressRouter);
+app.use("/api/reviews", reviewRouter);
+app.use("/api/payments", paymentRouter);
 
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.send("Backend Airbnb funcionando");
 });
 

@@ -23,16 +23,26 @@ export default function LoginPage() {
       const res = await api.post("/users/login", payload);
       const data = res.data as {
         token: string;
-        user: { id: string; name: string; email: string; role?: string };
+        user: {
+          id: string;
+          name: string;
+          email: string;
+          role?: string | { name?: string };
+        };
       };
 
-      // 🎯 Construimos el tipo EXACTO que AuthContext espera
+      const role =
+        typeof data.user.role === "string"
+          ? data.user.role
+          : data.user.role?.name || "client";
+
       const authUser: AuthUser = {
         token: data.token,
         user: {
           id: data.user.id,
           name: data.user.name,
           email: data.user.email,
+          role,
         },
       };
 

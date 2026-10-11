@@ -49,7 +49,7 @@ export const createBooking = async (req, res) => {
 
     const savedBooking = await newBooking.save();
 
-    const populatedBooking = await savedBooking
+    const populatedBooking = await Booking.findById(savedBooking._id)
       .populate("user")
       .populate("listing")
       .populate("status");
@@ -78,6 +78,26 @@ export const getAllBookings = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error al obtener los bookings",
+      error: error.message,
+    });
+  }
+};
+
+// Obtener bookings del host
+export const getHostBookings = async (req, res) => {
+  try {
+    const myListings = await Listing.find({ host: req.user.id }).select("_id");
+    const listingIds = myListings.map((l) => l._id);
+
+    const bookings = await Booking.find({ listing: { $in: listingIds } })
+      .populate("user", "name email")
+      .populate("listing", "title location price images")
+      .populate("status");
+
+    res.status(200).json({ bookings });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al obtener las reservas del host",
       error: error.message,
     });
   }
@@ -171,6 +191,51 @@ export const updateBooking = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error al actualizar el booking",
+      error: error.message,
+    });
+  }
+};
+
+// Actualizar status de booking (host confirma/rechaza)
+export const updateBookingStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { statusName } = req.body;
+
+    const booking = await Booking.findById(id).populate("listing");
+    if (!booking) {
+      return res.status(404).json({ message: "Booking no encontrado" });
+    }
+
+    const listing = await Listing.findById(booking.listing._id);
+    if (!listing) {
+      return res.status(404).json({ message: "Propiedad no encontrada" });
+    }
+
+    if (listing.host.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "No tienes permiso para modificar esta reserva" });
+    }
+
+    const status = await BookingStatus.findOne({ name: statusName });
+    if (!status) {
+      return res.status(400).json({ message: "Estado no válido" });
+    }
+
+    booking.status = status._id;
+    await booking.save();
+
+    const populated = await Booking.findById(booking._id)
+      .populate("user")
+      .populate("listing")
+      .populate("status");
+
+    res.status(200).json({
+      message: `Booking ${statusName === "confirmed" ? "confirmado" : statusName === "cancelled" ? "cancelado" : "actualizado"}`,
+      booking: populated,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al actualizar el estado del booking",
       error: error.message,
     });
   }

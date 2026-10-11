@@ -36,6 +36,17 @@ export const getListingById = async (req, res) => {
   }
 };
 
+export const getMyListings = async (req, res) => {
+  try {
+    const listings = await Listing.find({ host: req.user.id })
+      .populate("host", "name email")
+      .populate("category", "name");
+    res.status(200).json({ listings });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const createListing = async (req, res) => {
   try {
     const {
@@ -49,17 +60,19 @@ export const createListing = async (req, res) => {
       category,
     } = req.body;
 
-    if (!title || !description || !location || !price || !host) {
+    if (!title || !description || !location || !price) {
       return res.status(400).json({
         message: "Faltan campos obligatorios",
       });
     }
 
-    if (!isValidObjectId(host)) {
+    const hostId = host || req.user.id;
+
+    if (!isValidObjectId(hostId)) {
       return res.status(400).json({ message: "Host ID inválido" });
     }
 
-    const hostUser = await User.findById(host).populate("role");
+    const hostUser = await User.findById(hostId).populate("role");
 
     if (!hostUser) {
       return res.status(404).json({
@@ -83,7 +96,7 @@ export const createListing = async (req, res) => {
       location,
       price,
       images,
-      host,
+      host: hostId,
       availability,
       category,
     });
@@ -104,15 +117,20 @@ export const updateListing = async (req, res) => {
       return res.status(400).json({ message: "ID inválido" });
     }
 
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      return res.status(404).json({ message: "Propiedad no encontrada" });
+    }
+
+    if (listing.host.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "No tienes permiso para editar esta propiedad" });
+    }
+
     const updatedListing = await Listing.findByIdAndUpdate(id, req.body, {
       new: true,
     })
       .populate("host", "name email")
       .populate("category", "name");
-
-    if (!updatedListing) {
-      return res.status(404).json({ message: "Propiedad no encontrada" });
-    }
 
     res.status(200).json({ listing: updatedListing });
   } catch (error) {
@@ -129,9 +147,12 @@ export const deleteListing = async (req, res) => {
     }
 
     const listing = await Listing.findById(id);
-
     if (!listing) {
       return res.status(404).json({ message: "Propiedad no encontrada" });
+    }
+
+    if (listing.host.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "No tienes permiso para eliminar esta propiedad" });
     }
 
     await Listing.findByIdAndDelete(id);

@@ -2,7 +2,7 @@ import Notification from "../models/Notification.models.js";
 import { sendNotification } from "../sockets/notification.js";
 import NotificationType from "../models/NotificationType.model.js";
 import { sendEmail } from "../utils/email.js";
-import User from "../models/User.models.js";
+import User from "../models/user.models.js";
 
 export const createNotification = async (req, res) => {
   try {

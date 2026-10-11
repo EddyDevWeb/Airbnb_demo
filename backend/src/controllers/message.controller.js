@@ -26,7 +26,7 @@ export const getChatHistory = async (req, res) => {
 
 export const getConversations = async (req, res) => {
   try {
-    const myId = req.user.id;
+    const myId = new mongoose.Types.ObjectId(req.user.id);
 
     const conversations = await Message.aggregate([
       {

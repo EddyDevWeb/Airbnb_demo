@@ -6,12 +6,13 @@ import {
   deleteCategory,
 } from "../controllers/category.controller.js";
 import { protect } from "../middlewares/auth.middleware.js";
+import { requireRole } from "../middlewares/role.middleware.js";
 
 const categoriesRouter = express.Router();
 
-categoriesRouter.post("/Create", protect, createCategory);
+categoriesRouter.post("/Create", protect, requireRole("admin"), createCategory);
 categoriesRouter.get("/Get", getCategories);
-categoriesRouter.put("/update/:id", protect, updateCategory);
-categoriesRouter.delete("/delete/:id", protect, deleteCategory);
+categoriesRouter.put("/update/:id", protect, requireRole("admin"), updateCategory);
+categoriesRouter.delete("/delete/:id", protect, requireRole("admin"), deleteCategory);
 
 export default categoriesRouter;

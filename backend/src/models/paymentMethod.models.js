@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const paymentMethodSchema = new mongoose.Schema(
   {
     name: {
