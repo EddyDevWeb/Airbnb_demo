@@ -295,7 +295,7 @@ En la nube **no** puedes usar `mongodb://localhost`. Necesitas un clúster:
    - `EMAIL_USER` y `EMAIL_PASS`
    - `CLIENT_URL` → la URL de Vercel (la añades después del paso 3)
    - `PORT` lo asigna Render automáticamente.
-5. Deploy y anota la URL del servicio (ej: `https://airbnb-demo.onrender.com`).
+5. Deploy y anota la URL del servicio (ej: `https://airbnb-demo-api.onrender.com`).
 
 > Endpoint de salud para monitoreo: `GET /health`.
 
@@ -306,12 +306,12 @@ En la nube **no** puedes usar `mongodb://localhost`. Necesitas un clúster:
    - **Framework Preset**: `Vite` (autodetectado)
    - **Build Command**: `npm run build` · **Output Directory**: `dist`
 3. En **Environment Variables** añade:
-   - `VITE_API_URL` → la URL del backend en Render (ej: `https://airbnb-demo.onrender.com`)
-4. Deploy. Vercel devolverá una URL como `https://airbnb-demo.vercel.app`.
+   - `VITE_API_URL` → la URL del backend en Render (ej: `https://airbnb-demo-api.onrender.com`)
+4. Deploy. Vercel devolverá una URL como `https://stayhub-demo-app.vercel.app`.
 
 ### 4. Cerrar el círculo (CORS + WebSockets)
 Vuelve a **Render → Environment Variables** y pon `CLIENT_URL` con la URL real de Vercel
-(`https://airbnb-demo.vercel.app`) y haz **redeploy**. Así el backend acepta peticiones y
+(`https://stayhub-demo-app.vercel.app`) y haz **redeploy**. Así el backend acepta peticiones y
 conexiones de Socket.io desde el frontend desplegado.
 
 > ⚠️ En el plan **Free** de Render, el servicio se "duerme" tras un rato de inactividad: la primera petición puede tardar ~30 s en responder.
