@@ -89,6 +89,10 @@ export default function LoginPage() {
             Crea una aquí
           </Link>
         </p>
+
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Proyecto de demostración. No introduzcas datos reales.
+        </p>
       </form>
     </div>
   );

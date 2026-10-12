@@ -10,6 +10,7 @@ import AppLayout from "../layouts/AppLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import HostLayout from "../layouts/HostLayout";
 import HomePage from "../pages/HomePage";
+import LandingPage from "../pages/LandingPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import ListingsPage from "../pages/listings/ListingsPage";
@@ -101,7 +102,11 @@ function AppContent() {
       <Route
         path="/"
         element={
-          <Navigate to={user?.token ? "/dashboard" : "/login"} replace />
+          user?.token ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <LandingPage />
+          )
         }
       />
 
